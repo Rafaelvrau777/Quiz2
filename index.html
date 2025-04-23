@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz - Visão de Longo Prazo</title>
+  <style>
+    :root {
+      --amarelo: #FFD700;
+      --azul: #1c4293;
+      --cinza: #F2F2F2;
+      --branco: #FFFFFF;
+      --fundo-final: #FFF8DC;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--fundo-final);
+      transition: background-color 0.5s;
+    }
+
+    header {
+      background-color: var(--azul);
+      padding: 1rem;
+      text-align: center;
+      width: 100%;
+    }
+
+    header img {
+      max-height: 60px;
+    }
+
+    main {
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .container {
+      max-width: 700px;
+      width: 95%;
+      background: var(--branco);
+      padding: 2rem;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      transition: all 0.5s ease;
+    }
+
+    .question {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #222;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .options button {
+      display: block;
+      width: 100%;
+      margin: 1rem 0;
+      padding: 1rem;
+      border: 2px solid var(--azul);
+      background-color: var(--branco);
+      color: var(--azul);
+      font-size: 1rem;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-radius: 4px;
+    }
+
+    .options button:hover {
+      background-color: var(--azul);
+      color: var(--branco);
+    }
+
+    .footer {
+      font-size: 0.75rem;
+      text-align: center;
+      margin-top: 2rem;
+      color: #555;
+      padding-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="https://logodownload.org/wp-content/uploads/2017/08/moura-logo.png" alt="imagempelolink">
+  </header>
+
+  <main>
+    <div class="container" id="quizContainer">
+      <div class="question" id="question">Carregando...</div>
+      <div class="options" id="options"></div>
+    </div>
+  </main>
+
+  <div class="footer" id="footer"></div>
+
+  <script>
+    const perguntas = [
+      {
+        texto: "O que significa ter visão de longo prazo em um projeto?",
+        opcoes: ["Focar apenas nas tarefas do dia", "Planejar metas futuras e sustentáveis", "Acompanhar apenas os resultados mensais"]
+      },
+      {
+        texto: "Como a visão de longo prazo impacta a equipe?",
+        opcoes: ["Desmotiva por ser distante", "Ajuda no alinhamento e engajamento", "Cria metas inalcançáveis"]
+      },
+      {
+        texto: "Qual dessas ações mostra visão de longo prazo?",
+        opcoes: ["Resolver apenas problemas urgentes", "Treinar a equipe para o futuro", "Ignorar melhorias contínuas"]
+      },
+      {
+        texto: "Qual a importância da análise de resultados a longo prazo?",
+        opcoes: ["Evitar mudanças", "Adaptar estratégias e garantir evolução", "Focar só nos números"]
+      },
+      {
+        texto: "Como manter a visão de longo prazo em tempos difíceis?",
+        opcoes: ["Ignorar o plano", "Ajustar rotas mantendo os objetivos", "Desistir e recomeçar sempre"]
+      }
+    ];
+
+    const quizContainer = document.getElementById('quizContainer');
+    const question = document.getElementById('question');
+    const options = document.getElementById('options');
+    const footer = document.getElementById('footer');
+
+    let pagina = 0;
+
+    function mostrarPergunta(index) {
+      const pergunta = perguntas[index];
+      question.textContent = pergunta.texto;
+      options.innerHTML = '';
+      pergunta.opcoes.forEach(opcao => {
+        const btn = document.createElement('button');
+        btn.textContent = opcao;
+        btn.onclick = () => proximaPergunta();
+        options.appendChild(btn);
+      });
+    }
+
+    function proximaPergunta() {
+      pagina++;
+      if (pagina < perguntas.length) {
+        mostrarPergunta(pagina);
+      } else {
+        mostrarFinal();
+      }
+    }
+
+    function mostrarFinal() {
+      question.textContent = "Parabéns por concluir o quiz!";
+      options.innerHTML = "<p>Você demonstrou compreender a importância de obter resultados com visão de longo prazo.</p>";
+      footer.innerHTML = "<br> Rafael Caetano | Flavia Alessandra | Tema: Obter resultado com visão de longo prazo";
+    }
+
+    mostrarPergunta(pagina);
+  </script>
+</body>
+</html>
